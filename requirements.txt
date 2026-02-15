@@ -1,0 +1,8 @@
+# Microeletrônica no Brasil — Análise Temporal
+# Dependências do projeto
+
+pandas>=2.0
+plotly>=5.18
+openpyxl>=3.1          # leitura de arquivos .xlsx
+jupyter>=1.0           # para rodar o notebook localmente
+nbformat>=5.0          # formato do notebook
