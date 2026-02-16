@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 
-DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+DATA_DIR = Path(__file__).resolve().parent.parent / "data" / "raw"
 
 FILES = {
     "estab_estados": "estabelecimentos_estados.xlsx",

@@ -28,7 +28,7 @@ uv sync
 
 ### 3. Add the data
 
-Place the `.xlsx` files in the `data/` folder. See details in [`data/README.md`](data/README.md).
+Place the `.xlsx` files in the `data/raw/` folder. See details in [`data/README.md`](data/README.md).
 
 ### 4. Run
 
@@ -92,7 +92,8 @@ microeletronica/
 │   ├── data_loader.py     # ETL: data loading and cleaning
 │   └── charts.py          # Reusable Plotly chart functions
 ├── data/
-│   └── *.xlsx             # Data files (RAIS)
+│   └── raw/
+│       └── *.xlsx         # Raw data files (RAIS)
 ├── exploration.ipynb      # Exploratory notebook
 ├── pyproject.toml         # Dependencies and config (uv / ruff)
 ├── ROADMAP.md             # Future improvements roadmap

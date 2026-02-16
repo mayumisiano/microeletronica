@@ -1,8 +1,20 @@
 # Data
 
+## Structure
+
+```
+data/
+├── raw/                # Raw Excel files (RAIS)
+│   ├── estabelecimentos_estados.xlsx
+│   ├── estabelecimentos_municipios_sp.xlsx
+│   ├── empregados_estados.xlsx
+│   └── empregados_municipios_sp.xlsx
+└── README.md
+```
+
 ## Required files
 
-Place the following Excel files in this folder:
+Place the following Excel files in the `raw/` subfolder:
 
 | File | Description |
 |---|---|
