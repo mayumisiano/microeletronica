@@ -1,86 +1,111 @@
-# 🔬 Microeletrônica no Brasil — Análise Temporal
+# 🔬 Microelectronics in Brazil — Time Series Analysis
 
-Análise de série temporal dos estados brasileiros e municípios de São Paulo sobre a quantidade de funcionários e estabelecimentos referentes ao ramo da **Microeletrônica**, utilizando Python para gerar séries temporais interativas e observar mudanças no período de **2006 a 2019**.
+Time series analysis of Brazilian states and São Paulo municipalities regarding the number of employees and establishments in the **Microelectronics** industry, using Python to generate interactive visualizations and observe changes over the **2006–2019** period.
 
-> **Origem:** TCC apresentado em 2021, analisando a indústria de microeletrônica no Brasil durante a pandemia.
+> **Origin:** Undergraduate thesis (TCC) presented in 2021, analyzing Brazil's microelectronics industry during the pandemic. 
 
-## 📊 O que é analisado?
+## What is analyzed?
 
-- **Estabelecimentos** do setor de microeletrônica por estado e por município de São Paulo
-- **Empregados** no setor por estado e por município de São Paulo
-- 4 tipos de visualização: séries temporais, ranking por barras, heatmap e variação percentual
-- Métricas resumo com totais e variação no período
+- **Establishments** in the microelectronics sector by state and by São Paulo municipality
+- **Employees** in the sector by state and by São Paulo municipality
+- 4 visualization types: time series, bar ranking, heatmap, and percentage change
+- Summary metrics with totals and variation over the period
 
-## 🚀 Como executar
+## Getting started
 
-### 1. Clone o repositório
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/mayumisiano/microeletronica.git
 cd microeletronica
 ```
 
-### 2. Instale as dependências
+### 2. Install dependencies
 
 ```bash
-pip install -r requirements.txt
+uv sync
 ```
 
-### 3. Adicione os dados
+### 3. Add the data
 
-Coloque os arquivos `.xlsx` na pasta `data/raw/`. Veja detalhes em [`data/README.md`](data/README.md).
+Place the `.xlsx` files in the `data/` folder. See details in [`data/README.md`](data/README.md).
 
-### 4. Execute o dashboard
+### 4. Run the dashboard
 
 ```bash
-streamlit run app.py
+uv run streamlit run app.py
 ```
 
-O dashboard abrirá em `http://localhost:8501` com:
-- Seleção de dataset (estabelecimentos/empregados × estados/municípios)
-- Filtros de localidades
-- 4 tipos de gráfico interativo
-- Tabela de dados com download em CSV
+The dashboard will open at `http://localhost:8501` with:
+- Dataset selector (establishments/employees × states/municipalities)
+- Locality filters (Top N or manual selection)
+- 4 interactive chart types
+- Raw data table with CSV download
 
-> 💡 O notebook Jupyter também está disponível para exploração:
+> The Jupyter notebook is also available for exploration:
 > ```bash
-> jupyter notebook "Indústria_Microeletrônica_Análise_Temporal.ipynb"
+> uv run jupyter notebook "exploration.ipynb"
 > ```
 
-## 🛠️ Tecnologias
+## Tech stack
 
-- **Python 3.10+**
-- **Pandas** — manipulação e limpeza de dados
-- **Plotly** — visualizações interativas
-- **Streamlit** — dashboard web interativo
+- **Python 3.12+**
+- **uv** — dependency and virtual environment management
+- **Pandas** — data manipulation and cleaning
+- **Plotly** — interactive visualizations
+- **Streamlit** — interactive web dashboard
+- **Ruff** — linter and formatter
 
-## 📁 Estrutura
+## Architecture
+
+The project follows a modular architecture where the **notebook** and the **dashboard** share the same codebase:
+
+```
+src/
+    data_loader.py   ← ETL (Excel loading and cleaning)
+    charts.py        ← Plotly charts
+
+        ↑ imports              ↑ imports
+        │                      │
+    ┌───┴──────────┐   ┌───────┴───────────┐
+    │   Jupyter    │   │    Streamlit      │
+    │  (notebook)  │   │   (dashboard)     │
+    │              │   │                   │
+    │  academic    │   │  app.py + ui/     │
+    │  exploration │   │  presentation     │
+    └──────────────┘   └──────────────────-┘
+```
+
+All ETL and visualization logic lives in `src/` — fix a bug once, and the fix applies to both consumers automatically.
+
+## Structure
 
 ```
 microeletronica/
-├── app.py                # 🚀 Dashboard Streamlit (ponto de entrada)
+├── app.py                 # Dashboard Streamlit entry point
+├── ui/
+│   ├── style.py           # CSS and page configuration
+│   ├── sidebar.py         # Sidebar controls
+│   └── views.py           # Metrics, charts, and data table
 ├── src/
-│   ├── __init__.py
-│   ├── data_loader.py    # ETL: carregamento e limpeza dos dados
-│   └── charts.py         # Gráficos Plotly reutilizáveis
+│   ├── data_loader.py     # ETL: data loading and cleaning
+│   └── charts.py          # Reusable Plotly chart functions
 ├── data/
-│   ├── raw/              # Arquivos .xlsx originais
-│   └── README.md         # Documentação das fontes de dados
-├── Indústria_Microeletrônica_Análise_Temporal.ipynb  # Notebook (exploração)
-├── MELHORIAS.md          # Plano de melhorias e modernização
-├── requirements.txt
-├── .gitignore
-└── README.md
+│   └── *.xlsx             # Data files (RAIS)
+├── exploration.ipynb      # Exploratory notebook
+├── pyproject.toml         # Dependencies and config (uv / ruff)
+├── ROADMAP.md             # Future improvements roadmap
+└── .gitignore
 ```
 
-## 📈 Melhorias planejadas
+## Planned improvements
 
-Veja o plano completo em [`MELHORIAS.md`](MELHORIAS.md), incluindo:
-- Mapas geográficos (choropleth por estado)
-- Dados atualizados pós-pandemia (2020–2024)
-- Análises estatísticas avançadas (tendências, CAGR)
-- Deploy na nuvem (Streamlit Cloud)
+See the full plan in [`ROADMAP.md`](ROADMAP.md), including:
+- Geographic maps (choropleth by state)
+- Updated post-pandemic data (2020–2024)
+- Advanced statistical analysis (trends, CAGR)
+- Cloud deployment (Streamlit Cloud)
 
-## 📝 Fonte dos dados
+## Data source
 
-**RAIS** (Relação Anual de Informações Sociais) — Ministério do Trabalho e Emprego do Brasil.
+**RAIS** (Relação Anual de Informações Sociais) — Brazilian Ministry of Labor and Employment.
