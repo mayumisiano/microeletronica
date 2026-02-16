@@ -1,18 +1,18 @@
-# 📁 Dados
+# Data
 
-## Arquivos necessários
+## Required files
 
-Coloque os seguintes arquivos Excel na pasta `raw/`:
+Place the following Excel files in this folder:
 
-| Arquivo | Descrição |
+| File | Description |
 |---|---|
-| `Estabelecimentos_estados.xlsx` | Nº de estabelecimentos de microeletrônica por estado (2006–2019) |
-| `Analise_Estabelecimentos_3rank_municipio_sp.xlsx` | Nº de estabelecimentos nos municípios de São Paulo |
-| `Analise_Funcionarios_3rank_estados.xlsx` | Nº de empregados por estado |
-| `Analise_Funcionarios_3rank_municipio_sp.xlsx` | Nº de empregados nos municípios de São Paulo |
+| `estabelecimentos_estados.xlsx` | Microelectronics establishments by state (2006–2019) |
+| `estabelecimentos_municipios_sp.xlsx` | Establishments in São Paulo municipalities |
+| `empregados_estados.xlsx` | Employees by state |
+| `empregados_municipios_sp.xlsx` | Employees in São Paulo municipalities |
 
-## Fonte dos dados
+## Data source
 
-**RAIS** (Relação Anual de Informações Sociais) — Ministério do Trabalho e Emprego.
+**RAIS** (Relação Anual de Informações Sociais) — Brazilian Ministry of Labor and Employment.
 
-> Os dados originais foram extraídos do [Portal de Dados Abertos do Governo Federal](http://dados.gov.br/) e filtrados para o CNAE referente ao setor de microeletrônica.
+> Original data extracted from the [Brazilian Open Data Portal](http://dados.gov.br/) and filtered by the CNAE code for the microelectronics sector.
