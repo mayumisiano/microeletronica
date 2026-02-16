@@ -20,7 +20,9 @@ DATASETS_META: dict[str, dict] = {
         "drop_total": True,
         "title": "Estabelecimentos por Estado",
         "ylabel": "Nº de Estabelecimentos",
-        "description": "Quantidade de estabelecimentos do setor de microeletrônica por unidade federativa.",
+        "description": (
+            "Quantidade de estabelecimentos do setor de microeletrônica por unidade federativa."
+        ),
     },
     "estab_municipios_sp": {
         "row_label": "Município-São Paulo",
@@ -34,7 +36,9 @@ DATASETS_META: dict[str, dict] = {
         "drop_total": True,
         "title": "Empregados por Estado",
         "ylabel": "Nº de Empregados",
-        "description": "Quantidade de empregados no setor de microeletrônica por unidade federativa.",
+        "description": (
+            "Quantidade de empregados no setor de microeletrônica por unidade federativa."
+        ),
     },
     "empreg_municipios_sp": {
         "row_label": "Município-São Paulo",
@@ -51,16 +55,13 @@ def load_excel(
     row_label: str = "UF",
     drop_total: bool = True,
 ) -> pd.DataFrame:
-    """Load and clean a RAIS Excel file, returning a transposed DataFrame (years × localities)."""
+    """Load and clean a RAIS Excel file, returning a transposed DataFrame (years x localities)."""
     path = Path(filepath)
     if not path.is_absolute():
         path = DATA_DIR / path
 
     if not path.exists():
-        raise FileNotFoundError(
-            f"File not found: {path}\n"
-            f"Place .xlsx files in: {DATA_DIR}"
-        )
+        raise FileNotFoundError(f"File not found: {path}\nPlace .xlsx files in: {DATA_DIR}")
 
     xlsx = pd.ExcelFile(path)
     df = pd.read_excel(xlsx, xlsx.sheet_names[0])
@@ -104,7 +105,7 @@ class Dataset:
 
     @property
     def period(self) -> str:
-        return f"{self.years[0]}–{self.years[-1]}"
+        return f"{self.years[0]}-{self.years[-1]}"
 
     # backward-compat aliases (notebook)
     @property
@@ -135,10 +136,7 @@ class Dataset:
 def load_dataset(name: str) -> Dataset:
     """Load a single dataset by key name, with metadata attached."""
     if name not in FILES:
-        raise ValueError(
-            f"Dataset '{name}' not found. "
-            f"Options: {list(FILES.keys())}"
-        )
+        raise ValueError(f"Dataset '{name}' not found. Options: {list(FILES.keys())}")
 
     meta = DATASETS_META[name]
     df = load_excel(
@@ -169,10 +167,7 @@ def load_all() -> dict[str, Dataset]:
 
 def check_data() -> dict[str, bool]:
     """Check which data files are present on disk."""
-    return {
-        name: (DATA_DIR / filename).exists()
-        for name, filename in FILES.items()
-    }
+    return {name: (DATA_DIR / filename).exists() for name, filename in FILES.items()}
 
 
 # backward-compat aliases (notebook)

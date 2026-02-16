@@ -40,20 +40,19 @@ def time_series(
 
     fig = go.Figure()
     for i, col in enumerate(cols):
-        fig.add_trace(go.Scatter(
-            x=dataset.df.index,
-            y=dataset.df[col],
-            mode="lines+markers",
-            name=col,
-            marker=dict(size=7),
-            line=dict(color=COLORS[i % len(COLORS)], width=2.5),
-            hovertemplate=(
-                f"<b>{col}</b><br>"
-                f"Ano: %{{x}}<br>"
-                f"{dataset.ylabel}: %{{y:,.0f}}"
-                f"<extra></extra>"
-            ),
-        ))
+        fig.add_trace(
+            go.Scatter(
+                x=dataset.df.index,
+                y=dataset.df[col],
+                mode="lines+markers",
+                name=col,
+                marker=dict(size=7),
+                line=dict(color=COLORS[i % len(COLORS)], width=2.5),
+                hovertemplate=(
+                    f"<b>{col}</b><br>Ano: %{{x}}<br>{dataset.ylabel}: %{{y:,.0f}}<extra></extra>"
+                ),
+            )
+        )
 
     fig.update_layout(
         title=dict(text=title, font=dict(size=18)),
@@ -80,18 +79,15 @@ def bar_ranking(
 
     title = title or f"{dataset.title} — Ranking {year}"
 
-
-    fig = go.Figure(go.Bar(
-        x=top_data.values,
-        y=top_data.index,
-        orientation="h",
-        marker_color=COLORS[0],
-        hovertemplate=(
-            "<b>%{y}</b><br>"
-            f"{dataset.ylabel}: %{{x:,.0f}}"
-            "<extra></extra>"
-        ),
-    ))
+    fig = go.Figure(
+        go.Bar(
+            x=top_data.values,
+            y=top_data.index,
+            orientation="h",
+            marker_color=COLORS[0],
+            hovertemplate=(f"<b>%{{y}}</b><br>{dataset.ylabel}: %{{x:,.0f}}<extra></extra>"),
+        )
+    )
 
     fig.update_layout(
         title=dict(text=title, font=dict(size=18)),
@@ -126,18 +122,17 @@ def heatmap_evolution(
 
     title = title or f"{dataset.title} — Evolução Temporal"
 
-    fig = go.Figure(go.Heatmap(
-        z=df_subset.values,
-        x=df_subset.columns,
-        y=df_subset.index,
-        colorscale="YlOrRd",
-        hovertemplate=(
-            "<b>%{y}</b><br>"
-            "Ano: %{x}<br>"
-            f"{dataset.ylabel}: %{{z:,.0f}}"
-            "<extra></extra>"
-        ),
-    ))
+    fig = go.Figure(
+        go.Heatmap(
+            z=df_subset.values,
+            x=df_subset.columns,
+            y=df_subset.index,
+            colorscale="YlOrRd",
+            hovertemplate=(
+                f"<b>%{{y}}</b><br>Ano: %{{x}}<br>{dataset.ylabel}: %{{z:,.0f}}<extra></extra>"
+            ),
+        )
+    )
 
     fig.update_layout(
         **{**_BASE_LAYOUT, "height": max(400, len(cols) * 35)},
@@ -173,17 +168,15 @@ def pct_change(
 
     bar_colors = [COLORS[2] if v >= 0 else COLORS[5] for v in top.values]
 
-    fig = go.Figure(go.Bar(
-        x=top.values,
-        y=top.index,
-        orientation="h",
-        marker_color=bar_colors,
-        hovertemplate=(
-            "<b>%{y}</b><br>"
-            "Variação: %{x:+.1f}%"
-            "<extra></extra>"
-        ),
-    ))
+    fig = go.Figure(
+        go.Bar(
+            x=top.values,
+            y=top.index,
+            orientation="h",
+            marker_color=bar_colors,
+            hovertemplate=("<b>%{y}</b><br>Variação: %{x:+.1f}%<extra></extra>"),
+        )
+    )
 
     fig.update_layout(
         title=dict(text=title, font=dict(size=18)),

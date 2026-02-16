@@ -30,22 +30,23 @@ uv sync
 
 Place the `.xlsx` files in the `data/` folder. See details in [`data/README.md`](data/README.md).
 
-### 4. Run the dashboard
+### 4. Run
+
+All commands use [taskipy](https://github.com/taskipy/taskipy) — defined in `pyproject.toml`:
 
 ```bash
-uv run streamlit run app.py
+uv run task dev        # start Streamlit dashboard
+uv run task notebook   # open Jupyter notebook
+uv run task lint       # run Ruff linter
+uv run task format     # auto-format code
+uv run task check      # lint + format check (CI)
 ```
 
 The dashboard will open at `http://localhost:8501` with:
-- Dataset selector (establishments/employees × states/municipalities)
+- Dataset selector (establishments/employees x states/municipalities)
 - Locality filters (Top N or manual selection)
 - 4 interactive chart types
 - Raw data table with CSV download
-
-> The Jupyter notebook is also available for exploration:
-> ```bash
-> uv run jupyter notebook "exploration.ipynb"
-> ```
 
 ## Tech stack
 
