@@ -1,0 +1,49 @@
+[project]
+name = "microeletronica"
+version = "1.0.0"
+description = "Análise temporal da indústria de microeletrônica no Brasil (2006–2019)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.2",
+    "plotly>=5.24",
+    "openpyxl>=3.1",
+    "streamlit>=1.40",
+    "taskipy>=1.14",
+    "jupyter>=1.1",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.8",
+]
+
+[project.scripts]
+microeletronica = "app:main"
+
+[tool.taskipy.tasks]
+dev = "streamlit run app.py --server.headless true"
+lint = "ruff check ."
+format = "ruff format ."
+check = "ruff check . && ruff format --check ."
+notebook = "jupyter notebook exploration.ipynb --log-level=CRITICAL"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["*.ipynb"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "RUF",  # ruff-specific
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
